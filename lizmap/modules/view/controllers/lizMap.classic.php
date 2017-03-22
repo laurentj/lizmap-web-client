@@ -23,59 +23,56 @@ class lizMapCtrl extends jController {
   protected $forceHiddenProjectVisible = false;
 
   /**
+   * Load the default project.
+   * @return Page with map and content for the chose Qgis project.
+   */
+  function index()
+  {
+      $lser = lizmap::getServices();
+      return $this->showMap($lser->defaultRepository,
+                            $lser->defaultProject);
+  }
+
+  /**
   * Load the map page for the given project.
   * @param string $repository Name of the repository.
   * @param string $project Name of the project.
   * @return Page with map and content for the chose Qgis project.
   */
-  function index() {
+  function project()
+  {
+      // Get the project
+      $project = filter_var($this->param('project'), FILTER_SANITIZE_STRING);
 
-    if ($this->param('theme')) {
-      jApp::config()->theme = $this->param('theme');
-    }
-    $ok = true;
+      // Get repository data
+      $repository = $this->param('repository');
 
-    // Get the project
-    $project = filter_var($this->param('project'), FILTER_SANITIZE_STRING);
+      return $this->showMap($repository, $project);
+  }
 
-    // Get repository data
-    $repository = $this->param('repository');
+  protected function showMap($repository, $project)
+  {
+      // default response
+      // redirection if error encountered
+      $rep = $this->getResponse('redirect');
+      $rep->action = 'view~default:index';
 
-    // Get lizmapRepository class
-    // if repository not found get the default
-    $lrep = null;
-    $lser = lizmap::getServices();
-    if ( !$repository ){
-      $lrep = lizmap::getRepository($lser->defaultRepository);
-      $repository = $lser->defaultRepository;
-    } else {
+      if ($this->param('theme')) {
+          jApp::config()->theme = $this->param('theme');
+      }
+
+      // Get lizmapRepository class
+      if (!$repository) {
+          jMessage::add("Repository name is missing", 'error');
+          return $rep;
+      }
+
+      $lser = lizmap::getServices();
       $lrep = lizmap::getRepository($repository);
-    }
 
-    // default response
-    // redirection if error encountered
-    $rep = $this->getResponse('redirect');
-    $rep->action = 'view~default:index';
-
-    if(!$lrep or !jAcl2::check('lizmap.repositories.view', $lrep->getKey())){
+    if (!$lrep or !jAcl2::check('lizmap.repositories.view', $lrep->getKey())){
       jMessage::add(jLocale::get('view~default.repository.access.denied'), 'error');
       return $rep;
-    }
-
-    // We must redirect to default repository project list if no project given
-    if(!$project){
-        try {
-            $lproj = lizmap::getProject($lrep->getKey().'~'.$lser->defaultProject);
-            if (!$lproj) {
-                jMessage::add('The parameter project is mandatory!', 'error');
-                return $rep;
-            } else
-                $project = $lser->defaultProject;
-        }
-        catch(UnknownLizmapProjectException $e) {
-            jMessage::add('The parameter project is mandatory!', 'error');
-            return $rep;
-        }
     }
 
     // Get lizmapProject class
@@ -140,28 +137,28 @@ class lizMapCtrl extends jController {
     $rep->addJSLink($bp.'js/bottom-dock.js');
 
     // Pass some configuration options to the web page through javascript var
+    $jurlParams = array('repository'=>$repository, 'project'=>$project);
     $lizUrls = array(
-      "params" => array('repository'=>$repository, 'project'=>$project),
-      "config" => jUrl::get('lizmap~service:getProjectConfig'),
-      "wms" => jUrl::get('lizmap~service:index'),
-      "media" => jUrl::get('view~media:getMedia'),
+      "params" => array(),
+      "config" => jUrl::get('lizmap~service:getProjectConfig', $jurlParams),
+      "wms" => jUrl::get('lizmap~service:index', $jurlParams),
+      "media" => jUrl::get('view~media:getMedia', $jurlParams),
       "nominatim" => jUrl::get('lizmap~osm:nominatim'),
-      "ign" => jUrl::get('lizmap~ign:address'),
-      "edition" => jUrl::get('lizmap~edition:getFeature'),
-      "permalink" => jUrl::getFull('view~map:index'),
+      "ign" => jUrl::get('lizmap~ign:address', $jurlParams),
+      "edition" => jUrl::get('lizmap~edition:getFeature', $jurlParams),
+      "permalink" => jUrl::getFull('view~map:project', $jurlParams),
       "dataTableLanguage"=> $bp.'js/dataTables/'.jApp::config()->locale.'.json',
       "basepath" => $bp,
-      "geobookmark" => jUrl::get('lizmap~geobookmark:index')
+      "geobookmark" => jUrl::get('lizmap~geobookmark:index', $jurlParams)
     );
 
     // Get optional WMS public url list
     $lser = lizmap::getServices();
     if($lser->wmsPublicUrlList){
         $publicUrlList = $lser->wmsPublicUrlList;
-        function f($x) {
-            return jUrl::getFull('lizmap~service:index', array(), 0, trim($x));
-        }
-        $pul = array_map('f', explode(',', $publicUrlList));
+        $pul = array_map(function ($x) use ($jurlParams) {
+            return jUrl::getFull('lizmap~service:index', $jurlParams, 0, trim($x));
+        }, explode(',', $publicUrlList));
         $lizUrls['publicUrlList'] = $pul;
     }
 

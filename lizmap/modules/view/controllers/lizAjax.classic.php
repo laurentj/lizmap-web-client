@@ -141,28 +141,29 @@ class lizAjaxCtrl extends jController {
       return $this->error403('view~default.repository.access.denied');
     }
 
+    $jurlParams = array('repository'=>$repository, 'project'=>$project);
     $lizUrls = array(
-      "params" => array('repository'=>$repository, 'project'=>$project),
-      "config" => jUrl::getFull('lizmap~service:getProjectConfig'),
-      "wms" => jUrl::getFull('lizmap~service:index'),
-      "media" => jUrl::getFull('view~media:getMedia'),
+      "params" => array(),
+      "config" => jUrl::getFull('lizmap~service:getProjectConfig', $jurlParams),
+      "wms" => jUrl::getFull('lizmap~service:index', $jurlParams),
+      "media" => jUrl::getFull('view~media:getMedia', $jurlParams),
       "nominatim" => jUrl::getFull('lizmap~osm:nominatim'),
-      "edition" => jUrl::getFull('lizmap~edition:getFeature'),
-      "permalink" => jUrl::getFull('view~map:index')
+      "edition" => jUrl::getFull('lizmap~edition:getFeature', $jurlParams),
+      "permalink" => jUrl::getFull('view~map:project', $jurlParams)
     );
 
     // Get optional WMS public url list
     if($lser->wmsPublicUrlList){
         $publicUrlList = $lser->wmsPublicUrlList;
-        function f($x) {
-            return jUrl::getFull('lizmap~service:index', array(), 0, trim($x));
-        }
-        $pul = array_map('f', explode(',', $publicUrlList));
+
+        $pul = array_map(function ($x) use($jurlParams) {
+            return jUrl::getFull('lizmap~service:index', $jurlParams, 0, trim($x));
+        }, explode(',', $publicUrlList));
         $lizUrls['publicUrlList'] = $pul;
     }
 
     if(jAcl2::check('lizmap.admin.repositories.delete'))
-      $lizUrls['removeCache'] = jUrl::getFull('admin~config:removeLayerCache');
+      $lizUrls['removeCache'] = jUrl::getFull('admin~config:removeLayerCache', array('repository'=>$repository));
 
     $content = '<script type="text/javascript" src="'.jUrl::getFull('view~translate:index').'"/>'."\n";
     $content .= '<script type="text/javascript">// <![CDATA['."\n";

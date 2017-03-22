@@ -20,17 +20,18 @@ class mapCtrl extends jController {
         // Set up redirect response
         $rep = $this->getResponse('redirect');
         $rep->action = 'view~map:index';
-        $params = jApp::coord()->request->params;
-        $rep->params = $params;
+        $params = $this->params();
+
 
         // Redirect to normal map if no suitable parameters
         if( !$params['dlsourcelayer'] or !$params['dlexpression'] ){
             jLog::log( 'Dynamic layers - no parameters DLSOURCELAYER or DLEXPRESSION' );
             return $rep;
         }
-
+        $rep->params = $params;
         // Get project path
         $project = $params['project'];
+        $rep->action = 'view~map:project';
         $repository = $params['repository'];
         $lrep = lizmap::getRepository($repository);
         $projectTemplatePath = realpath( $lrep->getPath() ) . '/' . $project . ".qgs";

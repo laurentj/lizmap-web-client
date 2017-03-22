@@ -45,7 +45,7 @@ class ajax_viewZone extends jZone {
                 $p->getData('abstract'),
                 $p->getData('proj'),
                 $p->getData('bbox'),
-                jUrl::getFull('view~map:index', array("repository"=>$p->getData('repository'),"project"=>$p->getData('id'))),
+                jUrl::getFull('view~map:project', array("repository"=>$p->getData('repository'),"project"=>$p->getData('id'))),
                 jUrl::getFull('view~media:illustration', array("repository"=>$p->getData('repository'),"project"=>$p->getData('id'))),
                 0,
                 $r,

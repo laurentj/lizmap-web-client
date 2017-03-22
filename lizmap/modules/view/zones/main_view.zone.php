@@ -80,7 +80,7 @@ class main_viewZone extends jZone {
                   $p->getData('abstract'),
                   $p->getData('proj'),
                   $p->getData('bbox'),
-                  jUrl::get('view~map:index', array("repository"=>$p->getData('repository'),"project"=>$p->getData('id'))),
+                  jUrl::get('view~map:project', array("repository"=>$p->getData('repository'),"project"=>$p->getData('id'))),
                   jUrl::get('view~media:illustration', array("repository"=>$p->getData('repository'),"project"=>$p->getData('id'))),
                   0,
                   $r,
@@ -89,7 +89,7 @@ class main_viewZone extends jZone {
                   $wmtsGetCapabilitiesUrl
                 );
               /*} else {
-                $this->_tpl->assign('auth_url_return', jUrl::get('view~map:index',
+                $this->_tpl->assign('auth_url_return', jUrl::get('view~map:project',
                   array(
                     "repository"=>$lrep->getKey(),
                     "project"=>$p->getData('id'),

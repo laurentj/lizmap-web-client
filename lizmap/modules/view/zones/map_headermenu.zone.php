@@ -19,7 +19,7 @@ class map_headermenuZone extends jZone {
         $repository = $this->param('repository');
         $auth_url_return = $this->param('auth_url_return');
         if ( !$auth_url_return )
-            $auth_url_return = jUrl::get('view~map:index',
+            $auth_url_return = jUrl::get('view~map:project',
                 array(
                     "repository"=>$repository,
                     "project"=>$project,

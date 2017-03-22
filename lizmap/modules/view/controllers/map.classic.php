@@ -25,7 +25,7 @@ class mapCtrl extends lizMapCtrl {
         $project = $this->projectKey;
 
         $rep->body->assign('auth_url_return',
-            jUrl::get('view~map:index',
+            jUrl::get('view~map:project',
                 array(
                     "repository"=>$repository,
                     "project"=>$project,

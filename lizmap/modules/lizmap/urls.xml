@@ -13,9 +13,9 @@
     <url pathinfo="/edition/:repository/:project/:lid/unkink"       action="edition:unlinkChild"/>
 
 
-    <url pathinfo="/geobookmark"       action="geobookmark:index"/> <!-- /:repository/:project/ -->
+    <url pathinfo="/geobookmark/:repository/:project/"       action="geobookmark:index"/>
 
-    <url pathinfo="/ign"       action="ign:address"/> <!-- /:repository/:project/ -->
+    <url pathinfo="/ign/:repository/:project/"       action="ign:address"/>
     <url pathinfo="/osm"       action="osm:nominatim"/>
     <url pathinfo="/repo/:repository/:project/search"       action="search:get"/>
     <url pathinfo="/repo/:repository/:project/service"       action="service:index"/>
