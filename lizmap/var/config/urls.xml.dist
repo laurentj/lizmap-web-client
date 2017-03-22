@@ -7,6 +7,8 @@
         <url pathinfo="/view"   module="view"  include="urls.xml" />
         <url pathinfo="/jelix"          module="jelix"          include="urls.xml" />
 
+        <url pathinfo="/view"   module="view"  include="urls_legacy.xml" />
+
     </entrypoint>
 
     <entrypoint name="admin">

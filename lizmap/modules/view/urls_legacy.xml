@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<suburls xmlns="http://jelix.org/ns/suburls/1.0">
+    <!--<url pathinfo="/"               action="legacy:defaultIndex"/>-->
+    <url pathinfo="/default"        action="legacy:defaultIndex" optionalTrailingSlash="true"/>
+    <url pathinfo="/default/index"  action="legacy:defaultIndex" optionalTrailingSlash="true"/>
+
+    <url pathinfo="/app/metadata"   action="legacy:appMetadata" optionalTrailingSlash="true"/>
+
+    <url pathinfo="/map"            action="legacy:mapIndex" optionalTrailingSlash="true"/>
+    <url pathinfo="/map/index"      action="legacy:mapIndex" optionalTrailingSlash="true"/>
+
+    <url pathinfo="/media/getMedia"       action="legacy:mediaGetMedia" optionalTrailingSlash="true"/>
+    <url pathinfo="/media/illustration"   action="legacy:mediaIllustration" optionalTrailingSlash="true"/>
+    <url pathinfo="/media/getCssFile"     action="legacy:mediaGetCssFile" optionalTrailingSlash="true"/>
+    <url pathinfo="/media/logo"             action="legacy:mediaLogo" optionalTrailingSlash="true"/>
+    <url pathinfo="/media/getDefaultTheme"  action="legacy:mediaGetDefaultTheme" optionalTrailingSlash="true"/>
+
+    <url pathinfo="/translate"               action="legacy:translateIndex" optionalTrailingSlash="true"/>
+    <url pathinfo="/translate/index"         action="legacy:translateIndex"/>
+    <url pathinfo="/translate/getDictionary" action="legacy:translateGetDictionary"/>
+
+    <url pathinfo="/ajax/"       action="legacy:ajaxIndex"  optionalTrailingSlash="true"/>
+    <url pathinfo="/ajax/map"    action="legacy:ajaxMap"/>
+</suburls>
