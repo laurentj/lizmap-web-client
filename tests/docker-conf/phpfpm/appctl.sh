@@ -76,6 +76,11 @@ function resetApp() {
 }
 
 
+function launchConfigure() {
+    su $APP_USER -c "php $APPDIR/install/configurator.php"
+}
+
+
 function launchInstaller() {
     php /srv/lzm/tests/docker-conf/phpfpm/initpgsql.php
     su $APP_USER -c "php $APPDIR/install/installer.php"
@@ -206,6 +211,8 @@ case $COMMAND in
         resetApp sqlite;;
     launch)
         launch;;
+    configure)
+        launchConfigure;;
     install)
         launchInstaller;;
     rights)
