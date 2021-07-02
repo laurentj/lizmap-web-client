@@ -133,10 +133,6 @@ basePath=
 
 notFoundAct="jelix~error:notfound"
 
-[basic_significant_urlengine_aliases]
-auth=jcommunity
-
-
 [logger]
 _all=
 default=file
@@ -213,48 +209,6 @@ ckdefault.engine.name=ckeditor
 ckfull.engine.name=ckeditor
 ckbasic.engine.name=ckeditor
 ckfullandmedia.engine.name=ckeditor
-
-[modules]
-
-
-jacl2db.installparam=defaultuser
-
-
-jcommunity.installparam="defaultusers=lizmap~defaultusers.json;manualconfig"
-
-
-ldapdao.installparam=noconfigfile
-multiauth.installparam="noconfigfile;localconfig"
-
-ldapdao.path="app:vendor/jelix/ldapdao-module/ldapdao"
-jelix.enabled=on
-jacl.enabled=off
-jacldb.enabled=off
-jpref.enabled=off
-jsoap.enabled=off
-junittests.enabled=off
-jpref_admin.enabled=off
-jacl2.enabled=on
-jacl2db.enabled=on
-jauth.enabled=off
-jauthdb.enabled=off
-jcommunity.enabled=on
-admin.enabled=on
-dataviz.enabled=on
-filter.enabled=on
-action.enabled=on
-dynamicLayers.enabled=on
-lizmap.enabled=on
-proj4php.enabled=on
-view.enabled=on
-jacl2db_admin.enabled=on
-jauthdb_admin.enabled=on
-master_admin.enabled=on
-jelix.installparam[wwwfiles]=copy
-
-[mailLogger]
-email="root@localhost"
-emailHeaders="Content-Type: text/plain; charset=UTF-8\nFrom: webmaster@yoursite.com\nX-Mailer: Jelix\nX-Priority: 1 (Highest)\n"
 
 [jcommunity]
 loginResponse=htmlauth
