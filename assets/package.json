@@ -9,7 +9,7 @@
     "pretest-fix": "eslint --fix src"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
+    "eslint": "^8.1.0",
     "jsts": "^2.7.1",
     "lit-html": "^1.4.1",
     "ol": "^6.6.1",
