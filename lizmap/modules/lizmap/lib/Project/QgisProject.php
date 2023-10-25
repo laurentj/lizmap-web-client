@@ -1085,6 +1085,7 @@ class QgisProject
         );
 
         // get title from WMS properties
+        // @deprecated OK QgisXmlReader
         if (property_exists($qgsXml->properties, 'WMSServiceTitle')) {
             if (!empty($qgsXml->properties->WMSServiceTitle)) {
                 $this->data['title'] = (string) $qgsXml->properties->WMSServiceTitle;
@@ -1092,11 +1093,13 @@ class QgisProject
         }
 
         // get abstract from WMS properties
+        // @deprecated OK QgisXmlReader
         if (property_exists($qgsXml->properties, 'WMSServiceAbstract')) {
             $this->data['abstract'] = (string) $qgsXml->properties->WMSServiceAbstract;
         }
 
         // get keyword list from WMS properties
+        // @deprecated OK QgisXmlReader
         if (property_exists($qgsXml->properties, 'WMSKeywordList')) {
             $values = array();
             foreach ($qgsXml->properties->WMSKeywordList->value as $value) {
@@ -1108,6 +1111,7 @@ class QgisProject
         }
 
         // get WMS max width
+        // @deprecated OK QgisXmlReader
         if (property_exists($qgsXml->properties, 'WMSMaxWidth')) {
             $this->data['wmsMaxWidth'] = (int) $qgsXml->properties->WMSMaxWidth;
         }
@@ -1116,6 +1120,7 @@ class QgisProject
         }
 
         // get WMS max height
+        // @deprecated OK QgisXmlReader
         if (property_exists($qgsXml->properties, 'WMSMaxHeight')) {
             $this->data['wmsMaxHeight'] = (int) $qgsXml->properties->WMSMaxHeight;
         }
@@ -1136,6 +1141,11 @@ class QgisProject
         list($this->relations, $this->relationsFields) = $this->readRelations($qgsXml);
     }
 
+    /**
+     * @deprecated OK QgisXmlReader
+     *
+     * @param mixed $qgsLoad
+     */
     protected function readWMSInformation($qgsLoad)
     {
 
@@ -1193,6 +1203,8 @@ class QgisProject
     }
 
     /**
+     * @deprecated OK QgisXmlReader
+     *
      * @param \SimpleXMLElement $xml
      */
     protected function readQgisProjectVersion($xml)
