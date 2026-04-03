@@ -4,7 +4,7 @@
 
 NAME=lizmap-builder
 
-PHP_VERSION:=8.1
+PHP_VERSION:=8.2
 
 VERSION_TAG=php$(PHP_VERSION)
 
