@@ -62,6 +62,9 @@ build-plugins:
         --entrypoint /src/add_server_plugins.sh \
 	    3liz/qgis-map-server:${LZMQGSRVVERSION} \
 
+build-assets:
+	(cd ../dev/ && make package PHP_VERSION=$(PHP_VERSION))
+
 show-qgis-server-versions:
 	@docker run -q \
 	    --rm -i \
@@ -108,6 +111,9 @@ build:: env
 
 # install or update plugins, to be sure we have the latest plugins
 build:: build-plugins
+
+# be sure we have built assets into lizmap
+build:: build-assets
 
 clean:
 	./lizmap-ctl clean

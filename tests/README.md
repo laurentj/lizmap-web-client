@@ -78,7 +78,7 @@ To do so, you need `mkcert`
 sudo apt install mkcert libnss3-tools -y
 mkcert -install
 ```
-The -install step creates and installs the local CA. You'll see output like:
+The `-install` step creates and installs the local CA. You'll see output like:
 
 ```bash
 Created a new local CA 💥
